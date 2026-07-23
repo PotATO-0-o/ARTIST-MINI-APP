@@ -1,0 +1,17 @@
+# Дополнение к exit-серверу: второй inbound для Fast VM
+#
+# Exit уже принимает соединения от Origin (контур 1).
+# Добавляем тот же inbound — Fast VM использует те же credentials.
+# Если exit уже настроен по вашей инструкции, менять ничего не нужно:
+# один inbound :10443 с единым UUID принимает и Origin, и Fast VM.
+#
+# Проверка: на exit должно быть разрешено подключение с IP Fast VM:
+#
+#   ufw allow from IP_FAST_VM to any port 10443 proto tcp
+#
+# Итоговая схема exit (без изменений относительно вашей инструкции):
+#
+#   Inbound :10443  VLESS + TLS  UUID  flow=xtls-rprx-vision
+#   ↑ Origin (контур 1, XHTTP chain)
+#   ↑ Fast VM (контур 2, Reality chain)
+#   → Outbound freedom → интернет

@@ -1,0 +1,89 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "tag": "reality-in",
+      "listen": "0.0.0.0",
+      "port": 443,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "ВСТАВЬТЕ_ЕДИНЫЙ_UUID",
+            "flow": "xtls-rprx-vision"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "yandex.ru:443",
+          "xver": 0,
+          "serverNames": [
+            "yandex.ru",
+            "www.yandex.ru"
+          ],
+          "privateKey": "СГЕНЕРИРОВАТЬ_xray_x25519",
+          "shortIds": [
+            "a1b2c3d4"
+          ]
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "to-exit",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "IP_EXIT_СЕРВЕРА",
+            "port": 10443,
+            "users": [
+              {
+                "id": "ВСТАВЬТЕ_ЕДИНЫЙ_UUID",
+                "encryption": "none",
+                "flow": "xtls-rprx-vision"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "relay.example.com",
+          "alpn": ["h2", "http/1.1"]
+        }
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom"
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole"
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": ["reality-in"],
+        "outboundTag": "to-exit"
+      }
+    ]
+  }
+}

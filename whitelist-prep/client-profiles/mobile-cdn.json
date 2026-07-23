@@ -1,0 +1,45 @@
+{
+  "remarks": "Контур 1: мобильный (LTE + БС) — XHTTP через Yandex CDN",
+  "protocol": "vless",
+  "settings": {
+    "vnext": [
+      {
+        "address": "cdn.example.com",
+        "port": 443,
+        "users": [
+          {
+            "id": "ВСТАВЬТЕ_ЕДИНЫЙ_UUID",
+            "encryption": "none",
+            "flow": ""
+          }
+        ]
+      }
+    ]
+  },
+  "streamSettings": {
+    "network": "xhttp",
+    "security": "tls",
+    "tlsSettings": {
+      "serverName": "cdn.example.com",
+      "allowInsecure": false,
+      "fingerprint": "chrome"
+    },
+    "xhttpSettings": {
+      "path": "/api-test",
+      "mode": "packet-up",
+      "host": "cdn.example.com",
+      "extra": {
+        "mode": "packet-up",
+        "scMaxEachPostBytes": 1000000,
+        "scMinPostsIntervalMs": 30,
+        "scMaxBufferedPosts": 30,
+        "xPaddingObfsMode": true,
+        "xPaddingKey": "dc",
+        "xPaddingHeader": "X-Cache",
+        "xPaddingMethod": "tokenish",
+        "xPaddingPlacement": "queryInHeader",
+        "uplinkHTTPMethod": "OPTIONS"
+      }
+    }
+  }
+}
