@@ -1,0 +1,31 @@
+{
+  "remarks": "Контур 2: Wi-Fi / стационарный — VLESS+Reality на YC VM",
+  "protocol": "vless",
+  "settings": {
+    "vnext": [
+      {
+        "address": "vm.example.com",
+        "port": 443,
+        "users": [
+          {
+            "id": "ВСТАВЬТЕ_ЕДИНЫЙ_UUID",
+            "encryption": "none",
+            "flow": "xtls-rprx-vision"
+          }
+        ]
+      }
+    ]
+  },
+  "streamSettings": {
+    "network": "tcp",
+    "security": "reality",
+    "realitySettings": {
+      "show": false,
+      "fingerprint": "chrome",
+      "serverName": "yandex.ru",
+      "publicKey": "ПУБЛИЧНЫЙ_КЛЮЧ_ИЗ_setup-fast-vm.sh",
+      "shortId": "a1b2c3d4",
+      "spiderX": "/"
+    }
+  }
+}
